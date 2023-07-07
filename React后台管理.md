@@ -41,7 +41,7 @@ npm i --save--dev scss-loader
 
 4、在src下新建assets/styles/global.scss全局样式
 
-![image-20230630150222880](C:\Users\bbbkf\AppData\Roaming\Typora\typora-user-images\image-20230630150222881.png)
+![image-20230630150222880](D:\BaiduNetdiskDownload\React\management\markdown images\image-20230630150222881.png)
 
 5、在入口文件引入全局样式
 
@@ -91,7 +91,7 @@ import * as path from 'path'
 
 scss的命名为 xxx.module.scss,例如：
 
-![image-20230630152255631](C:\Users\bbbkf\AppData\Roaming\Typora\typora-user-images\image-20230630152255632.png)
+![image-20230630152255631](D:\BaiduNetdiskDownload\React\management\markdown images\image-202306301522552.png)
 
 在引入时
 
@@ -212,8 +212,6 @@ const About = lazy(() => import('../views/About.tsx'))
 </React.Suspense>
 ```
 
-
-
 ```
 import React，{lazy} from 'react'
 
@@ -233,5 +231,136 @@ const Routes = [
     </React.Suspense>
 },
 
+```
+
+使用高阶组件，抽离loading组件
+
+```
+const WithLoadingComponent = (component:JSX.Element) =>(
+    <React.Suspense fallback={<div>Loading...</div>}>
+    {component}
+    </React.Suspense>
+)
+
+const Routes = [
+    { path: '/', element: <Navigate to="/home" />},
+    { path: '/home', element:
+    WithLoadingComponent(<Home />)
+    },
+    { path: '/about', element:
+    WithLoadingComponent(<About />)
+},
+
+```
+
+## 2、项目搭建
+
+### 1、首页views/Home.tsx
+
+引入Layout布局
+
+**引入图标**
+
+```
+import {
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+    UploadOutlined,
+    UserOutlined,
+    VideoCameraOutlined,
+} from '@ant-design/icons';
+```
+
+****
+
+**引入{Layout布局组件，Menu菜单组件，Button按钮组件，tehem主题}组件**
+
+```
+import { Layout, Menu, Button, theme } from 'antd';
+```
+
+****
+
+**collapsed和setCollapsed控制侧边栏的展开和收起**
+
+**三个组件Header，Content，Footer**
+
+****
+
+```
+import React, { useState } from 'react';
+import {
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+    UploadOutlined,
+    UserOutlined,
+    VideoCameraOutlined,
+} from '@ant-design/icons';
+import { Layout, Menu, Button, theme } from 'antd';
+
+const { Header, Sider, Content } = Layout;
+
+const Home: React.FC = () => {
+    const [collapsed, setCollapsed] = useState(false);
+    const {
+        token: { colorBgContainer },
+    } = theme.useToken();
+
+    return (
+        <Layout>
+            <Sider trigger={null} collapsible collapsed={collapsed}>
+                <div className="demo-logo-vertical" />
+                <Menu
+                    theme="dark"
+                    mode="inline"
+                    defaultSelectedKeys={['1']}
+                    items={[
+                        {
+                            key: '1',
+                            icon: <UserOutlined />,
+                            label: 'nav 1',
+                        },
+                        {
+                            key: '2',
+                            icon: <VideoCameraOutlined />,
+                            label: 'nav 2',
+                        },
+                        {
+                            key: '3',
+                            icon: <UploadOutlined />,
+                            label: 'nav 3',
+                        },
+                    ]}
+                />
+            </Sider>
+            <Layout>
+                <Header style={{ padding: 0, background: colorBgContainer }}>
+                    <Button
+                        type="text"
+                        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                        onClick={() => setCollapsed(!collapsed)}
+                        style={{
+                            fontSize: '16px',
+                            width: 64,
+                            height: 64,
+                        }}
+                    />
+                </Header>
+                <Content
+                    style={{
+                        margin: '24px 16px',
+                        padding: 24,
+                        minHeight: 280,
+                        background: colorBgContainer,
+                    }}
+                >
+                    Content
+                </Content>
+            </Layout>
+        </Layout>
+    );
+};
+
+export default Home;
 ```
 

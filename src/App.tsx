@@ -6,10 +6,10 @@ function App() {
   const element = useRoutes(Routes);
   return (
     <>
-      <h1>Hello, world!</h1>
+      {/* <h1>Hello, world!</h1>
       <Button type="primary" onClick={()=>{navigator('/home')}}>go to Home</Button>
       <Button type="primary" onClick={()=>{navigator('/about')}}>go to About</Button>
-      <hr />
+      <hr /> */}
       {/* 一般方法注册路由的占位组件*/}
       {/* <Outlet /> */}
       {/* 路由表方法注册路由的占位组件 */}

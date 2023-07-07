@@ -1,0 +1,32 @@
+@import "./variable.scss";
+
+
+.homeBreadcrumb {
+    margin-top: 20px;
+    margin-left: 16px;
+    max-width: fit-content;
+    padding: 0 10px;
+    min-height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    background-color:$bg-100 ;
+}
+
+.homeHeader {
+    background-color: $primary-100;
+    padding: 0;
+}
+
+.homeContent {
+    background-color: $bg-100;
+    padding: 0;
+    margin: 24px 16px;
+    padding: 24px;
+    min-width: 80%;
+    min-height: 280px,
+}
+.homeLayout{
+    background: $bg-300 !important;
+    width: 100vw;
+    height: 100vh;
+}
