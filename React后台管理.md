@@ -364,3 +364,99 @@ const Home: React.FC = () => {
 export default Home;
 ```
 
+### 2、在首页路由跳转
+
+在路由表@/router/routes
+
+```
+// import Home from '../views/Home.tsx'
+// import About from '../views/About.tsx'
+import React, { lazy } from 'react'
+import { Navigate } from 'react-router-dom'
+
+
+
+const Home = lazy(() => import('../views/Home.tsx'))
+const Page1 = lazy(() => import('../views/page1.tsx'))
+const Page2 = lazy(() => import('../views/page2.tsx'))
+const Page3 = lazy(() => import('../views/page3.tsx'))
+
+const WithLoadingComponent = (component: JSX.Element) => (
+    <React.Suspense fallback={<div>Loading...</div>}>
+        {component}
+    </React.Suspense>
+)
+
+const Routes = [
+    {
+        path: '/',
+        element: <Navigate to="/page1" />
+    },
+    {
+        path: '/',
+        element: WithLoadingComponent(<Home />),
+        children: [
+            {
+                path: '/page1',
+                element: WithLoadingComponent(<Page1 />)
+            },
+            {
+                path: '/page2',
+                element: WithLoadingComponent(<Page2 />)
+            },
+            {
+                path: '/page3',
+                element: WithLoadingComponent(<Page3 />)
+            },
+        ]
+    },
+    {
+        path: 'user',
+        element: WithLoadingComponent(<Home />),
+    }
+    
+
+]
+
+export default Routes
+```
+
+在@/view/Home.tsx中的Menu组件的item属性上配置路由跳转
+
+```
+ <Menu
+                    theme="dark"
+                    mode="inline"
+                    defaultSelectedKeys={['1']}
+                    onClick={handleClick}
+                    items={[
+                        {
+                            key: '/page1',
+                            icon: <UserOutlined />,
+                            label: 'nav 1',
+                        },
+                        {
+                            key: '/page2',
+                            icon: <VideoCameraOutlined />,
+                            label: 'nav 2',
+                        },
+                        {
+                            key: '/page3',
+                            icon: <UploadOutlined />,
+                            label: 'nav 3',
+                        },
+                    ]}
+                />
+```
+
+**注意要在展示区域使用路由占位组件<Outlet/>（记得从react-router-dom中引入）**
+
+这里是Content中使用
+
+```
+  <Content className={styles.homeContent}>
+                    Content
+                    <Outlet/>
+                </Content>
+```
+

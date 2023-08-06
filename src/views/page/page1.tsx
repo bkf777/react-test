@@ -1,0 +1,43 @@
+import React from 'react'
+import WaterBall from "../echart/waterball"
+import { Card, Col, Row } from 'antd'
+import { Legend } from '../echart/legend'
+
+export default function page1() {
+    const testLegend = [
+        {
+            color: "#FF0000",
+            name: "红色"
+        },
+        {
+            color: "#00FF00",
+            name: "绿色"
+        },
+        {
+            color: "#0000FF",
+            name: "蓝色"
+        }
+    ];
+
+    return (
+        <>
+            <Row>
+                <Col span={8}>
+                    <Card title="车位总览">
+                        <Row>
+                            <Col span={8}>
+                                <Legend items={testLegend} />
+                            </Col>
+                            <Col span={16}>
+                                <WaterBall />
+                            </Col>
+                        </Row>
+                    </Card>
+                </Col>
+            </Row>
+            <Row>
+
+            </Row>
+        </>
+    )
+}
