@@ -30,7 +30,7 @@ const Routes = [
             },
             {
                 path: '/page3/page1',
-                element: WithLoadingComponent(<Page1 />)
+                element: WithLoadingComponent(<Page3 />)
             },
             {
                 path: '/page3/page2',

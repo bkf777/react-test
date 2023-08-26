@@ -152,24 +152,6 @@ const Home: React.FC = () => {
                         <Avatar shape="square" size={54} src={avatar} />
                     </Dropdown>
                 </Header>
-                {/*面包屑*/ }
-                {firstPath!=="page1"&&<Breadcrumb
-                    className={styles.homeBreadcrumb}
-                    items={[
-                        {
-                            title: 'Home',
-                        },
-                        {
-                            title: <a href="">Application Center</a>,
-                        },
-                        {
-                            title: <a href="">Application List</a>,
-                        },
-                        {
-                            title: 'An Application',
-                        },
-                    ]}
-                />}
                 {/*主题*/}
                 <Content className={styles.homeContent}>
                     <Outlet />

@@ -2,16 +2,36 @@ import { Col, Row } from 'antd'
 import React from 'react'
 import styled from 'styled-components';
 
+type LegendProps= {
+    items:any[],
+    showLetters?:boolean
+}
 
-export const Legend = (props: any) => {
-    console.log(props)
-    const testLegend = props.items;
-
+export const Legend = (props: LegendProps) => {
+    const { items,showLetters=false } = props
+    const [showText,setShowText] = React.useState("");
+    const [show,setShow] = React.useState(showLetters);
+    const onMouseEnter = (event:any)=>{
+        setShowText(event.target.dataset.name);
+    }
+    const onClick = ()=>{
+        setShow(!show);
+    }
     return (
         <><LegendItems>
-            {testLegend.map((item: any) => {
+            {items.map((item: any) => {
                 return (<Row>
-                    <Col span={8} style={{ background: `${item.color}`,margin:"10px",color:"white",fontWeight:"700" }}>{item.name}</Col>
+                    <Col
+                        onMouseEnter={onMouseEnter}  
+                        onClick={onClick}
+                        data-name={item.name} span={8} 
+                        style={{
+                            background: `${item.color}`,
+                            margin:"10px",color:"white",
+                            fontWeight:"700",height:"20px" }}>
+                            {showText==item.name&&!show&&item.name}
+                            {show&&item.name}
+                    </Col>
                 </Row>)
             })}
             </LegendItems>

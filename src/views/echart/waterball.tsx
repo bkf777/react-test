@@ -47,7 +47,7 @@ const LiquidChart = () => {
                     label:{
                         normal:{
                             textStyle:{
-                                fontSize:30
+                                fontSize:28
                             }
                         }
                     },
@@ -64,7 +64,7 @@ const LiquidChart = () => {
         };
     }, []);
 
-    return <div ref={chartRef} style={{ width: '100%', height: '250px',fontSize:"14px"}} />;
+    return <div ref={chartRef} style={{ width: '100%', height: '200px',fontSize:"14px"}} />;
 };
 
 export default LiquidChart;
