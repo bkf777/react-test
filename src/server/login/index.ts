@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {LoginFormType} from '../reqType'
 import { resType } from '../resType';
+import { notification } from 'antd';
 
 enum User_PATH{
     LOGIN = 'api/user/login',
@@ -11,7 +12,17 @@ enum User_PATH{
 
 
 export const toLogin = async (values: LoginFormType):Promise<resType> => {
-    return await axios.post(User_PATH.LOGIN, values);
+    try {
+        const res = await axios.post(User_PATH.LOGIN, values);
+        return res.data;
+    } catch (error:any) {
+        notification.error({
+            message: '登录失败',
+            description: error.message,
+        });
+        return Promise.reject(error);
+    }
+
 }
 export const toRegister = async (values: LoginFormType):Promise<resType> => {
     return await axios.post(User_PATH.REGISTER, values);
