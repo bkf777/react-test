@@ -20,7 +20,7 @@ const { Header, Sider, Content } = Layout;
 
 const Home: React.FC = () => {
     //控制左侧菜单栏的展开和收起
-    const [collapsed, setCollapsed] = useState(true);
+    const [collapsed, setCollapsed] = useState(false);
     const location = useLocation()
     let firstPath = location.pathname.split('/')[1]
     const [openKeys, setOpenKeys] = useState<string>(firstPath);

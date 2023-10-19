@@ -1,24 +1,22 @@
 import React, { useContext, useEffect } from 'react';
-import { Switch } from 'antd';
 import styled from 'styled-components';
 import { MyContext } from './index';
+import { connect } from 'react-redux';
 
-interface MyComponentProps {
+
+// Define an empty interface to be used as the props for the Title component
+type MyComponentProps = {
     // 在这里定义您的组件特定的属性
-    
-}
+
+    }
 
 
-const Title: React.FC<MyComponentProps> = () => {
-    const { loginOrRegister, setLoginOrRegister } = useContext(MyContext);
-    const handleChange = (checked: boolean) => {
-        setLoginOrRegister(checked);
-        // getChildChecked(checked);
-    };
+
+const Title: React.FC<MyComponentProps> = (props:any) => {
+    const {loginOrRegister} = props
     return (
         <LoginPage>
             {loginOrRegister ? <div className="title">Welcome to the LOGIN</div> : <div className="title">Please REGISTER first</div>}
-            <Switch  checkedChildren="LOGIN" unCheckedChildren="REGISTER" onClick={handleChange} className='switch' checked={loginOrRegister} />
         </LoginPage>)
 
 }
@@ -33,7 +31,11 @@ const LoginPage = styled.div`
         margin-top: 20px;
     }
     `;
-
-export default Title;
+const mapStateToProps = (state: any) => {
+    return {
+        loginOrRegister: state.loginOrRegister
+    }
+}
+export default connect(mapStateToProps)(Title);
 
 

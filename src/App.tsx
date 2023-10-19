@@ -3,26 +3,33 @@ import { Navigate, Outlet, useLocation, useNavigate, useRoutes } from 'react-rou
 import Routes from './router/routes.tsx';
 import { useEffect } from 'react';
 import styled from 'styled-components';
+import { Provider } from 'react-redux';
+import  store  from './redux/state';
 function App() {
   const navigator = useNavigate();
 
   return (
-    <View>
-      {/* <h1>Hello, world!</h1>
-      <Button type="primary" onClick={()=>{navigator('/home')}}>go to Home</Button>
-      <Button type="primary" onClick={()=>{navigator('/about')}}>go to About</Button>
-      <hr /> */}
-      {/* 一般方法注册路由的占位组件*/}
-      {/* <Outlet /> */}
-      {/* 路由表方法注册路由的占位组件 */}
-      <BeforeRouterEnter />
-    </View>
+    <Provider store={store}>
+      <View>
+        {/* <h1>Hello, world!</h1>
+        <Button type="primary" onClick={()=>{navigator('/home')}}>go to Home</Button>
+        <Button type="primary" onClick={()=>{navigator('/about')}}>go to About</Button>
+        <hr /> */}
+        {/* 一般方法注册路由的占位组件*/}
+        {/* <Outlet /> */}
+        {/* 路由表方法注册路由的占位组件 */}
+        <BeforeRouterEnter />
+      </View>
+    </Provider>
   )
 }
-const ToLogin = () => {
+const withoutToken = ["/login","/customs"]
+const ToLogin = (props:any) => {
   const navigator = useNavigate();
+  console.log(props)
+  const path = withoutToken.includes(props.pathname)? props.pathname : "/login"
   useEffect(() => {
-    navigator('/login')
+    navigator(path)
   }, [])
   return <div/> 
 }
@@ -40,8 +47,8 @@ const BeforeRouterEnter = () => {
   if (ifLogin && location.pathname === '/login') {
     return <ToPage />
   } 
-  else if (!ifLogin && location.pathname !== '/login') {
-    return <ToLogin />
+  else if (!ifLogin && !withoutToken.includes(location.pathname)) {
+    return <ToLogin pathname={location.pathname} />
   }
   return element;
 };

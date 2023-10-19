@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom'
 import WithLoadingComponent from '../components/loading.tsx'
 import Login from '../views/login/index.tsx'
 
-
+const CustomsHome = lazy(() => import('../2c-views/home'))
 const Home = lazy(() => import('../views/Home.tsx'))
 const Page1 = lazy(() => import('../views/page/page1.tsx'))
 const Page2 = lazy(() => import('../views/page/page2.tsx'))
@@ -47,16 +47,16 @@ const Routes = [
         ]
     },
     {
-        path: 'user',
-        element: WithLoadingComponent(<Home />),
-    },
-    {
-        path: 'login',
+        path: '/login',
         element: <Login />,
     },
     {
+        path: '/customs',
+        element: WithLoadingComponent(<CustomsHome />),
+    },
+    {
         path: '*',
-        element: <Navigate to="/page1" />
+        element: <Navigate to="/customs" />
     },
 ]
 

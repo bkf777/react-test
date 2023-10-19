@@ -10,12 +10,13 @@ import { useRequest } from 'ahooks';
 import { toLogin } from '../../server/login';
 import { LoginFormType } from '../../server/reqType';
 import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 
 
-export const MyContext = createContext({});
+export const MyContext = createContext({ loginOrRegister: true ,setLoginOrRegister: (value:boolean) => {} });
 
-const Login: React.FC = () => {
+const Login: React.FC = (props:any) => {
     const [loginOrRegister, setLoginOrRegister] = React.useState(true);
     const [successLogin, setSuccessLogin] = React.useState(false);
     const navigate = useNavigate();
@@ -58,17 +59,17 @@ const Login: React.FC = () => {
             </RegisterPage>
         </>)
     }
-    useEffect(() => {
-        if (loginOrRegister) {
-            backRef?.current?.goTo(0)
-        } else {
-            backRef?.current?.goTo(1)
+    const changePageState = (from: number, to: number) => {
+        if (from ===0 && to === 1) {
+            props.changeLoginState(false)
+        }else{
+            props.changeLoginState(true)
         }
-    }, [loginOrRegister]);
+    }
     return (
         <div style={{ background: `${lbackground}` }}>
             <MyContext.Provider value={{ loginOrRegister, setLoginOrRegister }} >
-                <Carousel ref={backRef}>
+                <Carousel ref={backRef} beforeChange={changePageState}>
                     <div key={1}>
                         <OnLogin />
                     </div>
@@ -100,7 +101,13 @@ display: flex;
 justify-content: center;
 align-items: center;
 `
+const mapDispatchToProps = (dispatch:any) => {
+    return{
+        changeLoginState: (value:boolean) => {
+            dispatch({type:'loginState',loginState:value})
+        }
+    }
+} ;
 
 
-
-export default Login;
+export default connect(null,mapDispatchToProps)(Login);
