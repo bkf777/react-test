@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { Provider } from 'react-redux';
 import  store  from './redux/state';
 function App() {
-  const navigator = useNavigate();
 
   return (
     <Provider store={store}>
@@ -27,7 +26,7 @@ const withoutToken = ["/login","/customs"]
 const ToLogin = (props:any) => {
   const navigator = useNavigate();
   console.log(props)
-  const path = withoutToken.includes(props.pathname)? props.pathname : "/login"
+  const path = withoutToken.includes(props.pathname)? props.pathname : "/customs"
   useEffect(() => {
     navigator(path)
   }, [])
