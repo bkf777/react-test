@@ -17,6 +17,7 @@ const Main = () => {
   return (
     <div>
       <Swiper spaceBetween={59} slidesPerView={10} children={[1, 2, 3]} width={300} height={300} />
+      {/* <Swiper /> */}
     </div>
   );
 };
