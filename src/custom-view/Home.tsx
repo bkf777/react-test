@@ -1,4 +1,5 @@
 import Styled from "styled-components";
+import Swiper from "@/components/my-swiper";
 
 export default function CustomHome() {
   return (
@@ -13,7 +14,11 @@ const Header = () => {
   return <HeaderStyled>Header</HeaderStyled>;
 };
 const Main = () => {
-  return <div>Main</div>;
+  return (
+    <div>
+      <Swiper spaceBetween={59} slidesPerView={10} children={[1, 2, 3]} width={300} height={300} />
+    </div>
+  );
 };
 const Footer = () => {
   return <div>Footer</div>;
